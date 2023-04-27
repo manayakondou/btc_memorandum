@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- ヘッダーここから -->
+        <header class="header">
+            <div class="header-logo">
+                <h1><a href="index.html"><img src="images/logo.png" alt=""></a></h1>
+            </div>
+            <nav class="main-navigation">
+                <!-- メインナビゲーションここから -->
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bot.html">bot</a></li>
+                    <li><a href="technical.html">テクニカル</a></li>
+                    <li><a href="data.html">データ分析</a></li>
+                    <li><a href="garbage.html">ゴミ箱</a></li>
+                </ul>
+            </nav><!-- メインナビゲーションここまで -->
+        </header>
+
+        <div class="split">
+
+            <div class="split-item split-left">
+                <div class="split-left__inner">
+                    <h3>Home</h3>
+                    <ul class="mokuji-dayo">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="bot.html">bot</a></li>
+                        <li><a href="technical.html">テクニカル</a></li>
+                        <li><a href="data.html">データ分析</a></li>
+                        <li><a href="garbage.html">ゴミ箱</a></li>
+                    </ul>
+                    <p>目次</p>
+                    <ul class="mokuji-dayo">
+                        <li><a href="bot_environment.html">bot環境構築</a></li>
+                        <li><a href="bot_a.html">アドカレ</a></li>
+                        <li><a href="bot_b.html">目次1</a></li>
+                        <li><a href="#">目次1</a></li>
+                    </ul>
+                    <ul class="mokuji-dayo">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="split-item split-right">
+                <div class="split-right__inner">
+                    <!-- イントロテキストここから -->
+                    <section class="text-intro">
+                        <div class="content-text">
+                            <h3>ML botterにオススメなLightGBMのとっておきパラメータ紹介</h3>
+                            <div class="content-img">
+                                <h1><img src="images/hakusama.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <h3 id="目次1">ML botter向けにLightGBMの少々マニアックなパラメータを紹介します。</h3>
+                            <p>-------------------------------------------------------------------------------------------------------------------------------</p>
+                            <p>　</p>
+                            <h3>---TL;DR---</h3>
+                            <p>　</p>
+                            <h3>1・LightGBMを使ってる？</h3>
+                            <p> “extra_trees”: True がオススメ</p>
+                            <p>　</p>
+                            <h3>2・sklearnのExtraTreesRegressorを使ってる？</h3>
+                            <p> “extra_trees”: True, ”boosting”: “rf” のLightGBMもオススメ</p>
+                            <p>この2点について順を追って説明していきます。</p>
+                            <p>　</p>
+                            <p>-------------------------------------------------------------------------------------------------------------------------------</p>
+                            <p>　</p>
+                            <h3>---Extra Treesって？---</h3>
+                            <p>　</p>
+                            <p>extra treesはrandom forestの変種で、普通のrandom forestよりもっとランダムネスを強くして過学習に対策するものです。random forestは決定木をbaggingで一杯並べたものです。</p>
+                            <p>普通のrandom forestで使われる普通の決定木では、分割をする際、一番良い分割を見つけようということで、各特徴量で一番良い分割の閾値を探します。</p>
+                            <p>extra treesも決定木をbaggingで一杯並べます。ただし、決定木を作っていく際、各特徴量での分割の閾値を、一番良い値を見つけるのではなく、ランダムな値にしちゃいます。これが正則化となり過学習を更に避けられる、という仕組みですね。</p>
+                            <p>　</p>
+                            <p>もともとextra treesはsklearnで利用可能であり、UKI先生のこんなツイートもあったりと、MLbotterに人気のアルゴリズム</p>
+                            <p></p>
+                            <div class="content-img">
+                                <h1><img src="images/extra_trees_1.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <h3>---LightGBMでExtra Treesってどういうこと？---</h3>
+                            <p>　</p>
+                            <p>そんなExtra Treesですが、ちょっと前にLightGBMにもextra_treesというパラメータが入り、LightGBMでもextra treesが使えるようになりました。</p>
+                            <p>LightGBMは決定木を用いたアンサンブル学習のライブラリで、デフォルトではアンサンブル学習としてgradient boostingを行います。なので、extra_treesパラメータをTrueにすると、extra treesでgradient boostingをすることになります。</p>
+                            <p>　</p>
+                            <p>表にするとこんな感じ</p>
+                            <div class="content-img">
+                                <h1><img src="images/extra_trees_2.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>こんな感じで、sklearnのextra treesとはかなり違う機械学習器になります。</p>
+                            <p>　</p>
+                            <p>baggingの世界でRandomForestRegressorよりExtraTreesRegressorの方が強いんだったら、gradient boostingの世界でもextra_trees: TrueのLightGBMの方が強そうな気がしてきませんか…？</p>
+                            <p>金融データは非常にノイジーでとにかく過学習との戦いであり、決定木系の手法に限らず正則化はかなり強く効かせたいのが常ですよね。</p>
+                            <p>　</p>
+                            <h3>---baggingもLightGBMで？---</h3>
+                            <P>　</P>
+                            <p>ついでなので、LightGBMのboostingというパラメータを紹介します。このパラメータはアンサンブル学習の方法を制御するパラメータで、デフォルトは”gbdt”になっており、gradient boostingが使われます。</p>
+                            <p>　</p>
+                            <p>一方、boostingを”rf”にすると、baggingを行うこともできます。これとextra_treesパラメータを組み合わせると、以下の表のようになります。</p>
+                            <div class="content-img">
+                                <h1><img src="images/extra_trees_3.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>表の中で同じ場所に位置することから分かる通り、大枠として実現できるアルゴリズムはsklearnと同じです。それでもLightGBMを推す理由は以下の通りです。</p>
+                            <p>　</p>
+                            <p>・LightGBMの方がツリー構築に関して実装されている正則化が多いため、それらを使うことで、精度をより高くできるかもしれない。</p>
+                            <p>・LightGBMのほうが速い。速ければ試行錯誤を増やせる他、ツリーの数を増やして精度も稼げるかもしれない。</p>
+                            <p>　</p>
+                            <p>個人的には、sklearnのRandomForestRegressorやExtraTreesRegressorを使っているなら、代わりにboosting: rfでのLightGBMの利用もオススメです。</p>
+                            <p>　</p>
+                            <h3>---終わりに---</h3>
+                            <p>　</p>
+                            <p>長々と語りましたが、効果について過剰な期待はしないで下さい。特に勝てなかったストラテジがextra_treesをTrueにするだけで勝てるようになるという程の違いを生むことはまぁまず無いと思います</p>
+                            <p>　</p>
+                            <p>一方で、LightGBMを使ったbotを既にある程度確立している方であれば、これだけで成績をちょっぴり上げられるケースも結構あるかもしれないのでは？と思います。</p>
+                            
+
+
+                    </section>
+                    <!-- イントロテキストここまで -->
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <!-- フッターここから -->
+        <footer class="footer-wrapper">
+            <nav class="footer-navigation">
+                <!-- フッターナビゲーション -->
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bot.html">bot</a></li>
+                    <li><a href="linetrade.html">ライントレード</a></li>
+                    <li><a href="data.html">データ分析</a></li>
+                </ul>
+            </nav>
+            <div class="footer-copyright">
+                <small>更新日2022年10月21日</small>
+            </div>
+        </footer>
+        <!-- フッターここまで -->
+    </div>
+</body>
+
+</html>

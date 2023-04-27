@@ -1,0 +1,259 @@
+@charset "UTF-8";
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック Medium", "Yu Gothic Medium",
+    "游ゴシック", "Yu Gothic", sans-serif;
+  background-image: url(images/background.gif);
+  /* 天地左右の中央に配置 */
+  background-position: center center;
+  /* タイル状に繰り返し表示しない */
+  background-repeat: no-repeat;
+  /* コンテンツの高さが画像の高さより大きい時、動かないように固定 */
+  background-attachment: fixed;
+  /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
+  background-size: cover;
+  /* 背景画像が読み込まれる前に表示される背景のカラー */
+  background-color: #000000;
+}
+
+/*共通・大枠*/
+.wrapper {
+  width: 1200px;
+  margin: 0 auto;
+  background-color: rgba(3, 3, 3, 1);
+}
+
+
+
+a {
+  color: rgb(107, 247, 172);
+  text-decoration: none;
+}
+
+/* 共通　ヘッダー・メインナビゲーション */
+
+
+.header {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10000;
+  width: 1200px;
+  height: 60px;
+  background: #1d1c1c;
+  padding-right: 20%;
+  
+
+}
+
+.header-logo {
+  width: 50%;
+}
+
+.header-logo img {
+  width: 140px;
+  height: auto;
+}
+
+.main-dataimg {
+  width: 50%;
+}
+
+.header-logo img {
+  width: 140px;
+  height: auto;
+}
+
+/*メインナビゲーション*/
+.main-navigation {
+  width: 50%;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  align-items: flex-end;
+}
+
+.main-navigation ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  
+  
+  list-style-position: outside;
+}
+
+.main-navigation ul li {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.main-navigation ul li a {
+  text-decoration: none;
+  color: #D1D6C0;
+  transition: 0.3s;
+}
+
+.main-navigation ul li a:hover {
+  color: #E2416E;
+}
+
+
+/* 共通　フッター */
+.footer-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.footer-navigation {
+  width: 100%;
+  /* 960px */
+}
+
+.footer-navigation ul {
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
+}
+
+.footer-navigation ul li {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 40px;
+}
+
+.footer-navigation ul li a {
+  text-decoration: none;
+  color: #D1D6C0;
+  transition: 0.3s;
+}
+
+.footer-navigation ul li a:hover {
+  color: #E2416E;
+}
+
+.footer-copyright {
+  color: #D1D6C0;
+}
+
+
+/*サイドメニュー*/
+.side {
+  background-color: #413e3e;
+  width: 300px;
+  height: auto;
+}
+
+/*サイドメニューここまで*/
+
+/*メインコンテンツ*/
+.content {
+  background-color: #5a5b57;
+  width: 900px;
+  height: auto;
+  text-align: center;
+}
+
+/*メインコンテンツここまで*/
+
+/*目次共通*/
+.mokuji-dayo {
+  max-width: 500px;
+  margin: 30px auto;
+  font-weight: bold;
+}
+
+.mokuji-dayo li a {
+  text-decoration: none;
+  color: #D1D6C0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.mokuji-dayo li a:hover {
+  color: #E2416E;
+}
+
+
+
+
+.content-img img {
+  width: 100%;
+}
+
+.content-img2 img {
+  width: 100%;
+
+}
+
+.content-img2 a img {
+  transition: opacity 0.3s;
+}
+
+.content-img2 a:hover img {
+  opacity: 0.6;
+}
+
+/*linetradeページ*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.split {
+  display: table;
+  width: 100%;
+}
+
+.split-item {
+  display: table-cell;
+  padding: 80px;
+  width: 50%;
+}
+
+.split-left {
+  background: #4c4b4cc8;
+  color: #fff;
+  position: relative;
+  width: 15%;
+}
+
+.split-right {
+  background: #404040c8;
+  color: #fff;
+  position: relative;
+}
+
+.split-left__inner {
+  height: 100%;
+  position: fixed;
+  width: 20%;
+}
+
+.split-right__inner {
+  height: auto;
+
+}
+
+
+
+/*レスポンシブ対応*/
+@media screen and (max-width:1024px) {
+  .split {
+    display: block;
+  }
+
+  .split-item {
+    display: block;
+    width: auto;
+  }
+
+  .split-left__inner {
+    position: inherit;
+    width: auto;
+  }
+}
+
+/*レスポンシブ対応*/
+

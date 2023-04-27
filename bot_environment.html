@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="prism.css">
+    <script src="prism.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- ヘッダーここから -->
+        <header class="header">
+            <div class="header-logo">
+                <h1><a href="index.html"><img src="images/logo.png" alt=""></a></h1>
+            </div>
+            <nav class="main-navigation">
+                <!-- メインナビゲーションここから -->
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bot.html">bot</a></li>
+                    <li><a href="technical.html">テクニカル</a></li>
+                    <li><a href="data.html">データ分析</a></li>
+                    <li><a href="garbage.html">ゴミ箱</a></li>
+                </ul>
+            </nav><!-- メインナビゲーションここまで -->
+        </header>
+
+        <div class="split">
+
+            <div class="split-item split-left">
+                <div class="split-left__inner">
+                    <h3>Home</h3>
+                    <ul class="mokuji-dayo">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="bot.html">bot</a></li>
+                        <li><a href="technical.html">テクニカル</a></li>
+                        <li><a href="data.html">データ分析</a></li>
+                        <li><a href="garbage.html">ゴミ箱</a></li>
+                    </ul>
+                    <p>目次</p>
+                    <ul class="mokuji-dayo">
+                        <li><a href="#mokuji1">環境構成</a></li>
+                        <li><a href="#mokuji2">EC2使う理由</a></li>
+                        <li><a href="#mokuji3">環境構成</a></li>
+                        <li><a href="#mokuji4">fedoraについて</a></li>
+                        <li><a href="#mokuji5">AWSアカウント作成</a></li>
+                        <li><a href="#mokuji6">キーペア作成</a></li>
+                        <li><a href="#mokuji7">キーペア(macOSのみ) </a></li>
+                        <li><a href="#mokuji8">インスタンス立ち上げ</a></li>
+                        <li><a href="#mokuji9">SSHの接続と設定</a></li>
+                        <li><a href="#mokuji10">VSCodeインストール</a></li>
+                        <li><a href="#mokuji11">tmuxから稼働</a></li>
+                        <li><a href="#mokuji12">ローカル環境について</a></li>
+                        <li><a href="#mokuji13">スマホからSSH</a></li>
+                        <li><a href="#mokuji14">Pythonインストール</a></li>
+                    </ul>
+                    <ul class="mokuji-dayo">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="split-item split-right">
+                <div class="split-right__inner">
+                    <!-- イントロテキストここから -->
+                    <section class="text-intro">
+                        <div class="content-text">
+                            <h3 id="mokuji1">-----------------------------------botの開発環境構築-----------------------------------</h3>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_53.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <h3 id="mokuji2">--------------------------------クラウド9を使わない理由--------------------------------</h3>
+                            <p>　</p>
+                            <p>Cloud9は直感的なGUIでプログラミング初学者でも分かりやすい素晴らしいAWS上のサービスです。</p>
+                            <p>仮想通貨bot界隈でもまず初めに紹介されるサービスです。</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_1.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>しかしながらbot運用で利用していると以下のような課題があると感じられます。</p>
+                            <p>　</p>
+                            <ul>
+                                <li><h4>内蔵エディターがネイティブアプリには劣る</h4>
+                                    <p>Cloud9は内蔵エディターを搭載しておりWebアプリとしては高性能ですが、ネイティブなエディターには劣ります。VSCodeに乗り換えるとPythonのシンタックスハイライトやコード補完、型推定などが大幅に強化されます。コーディングはVS Codeを使ってCloud9にコピペする使い方もありますが、手動でファイル操作するよりもVSCodeまたはコンソール上で操作したほうがファイル管理が煩雑になりません。</p></li>
+                                <p>　</p>
+                                <li><h4>いちいちAWSへのログインが必要</h4>
+                                    <p>これはCloud9とう特性上仕方ない作業です。AWSのログインってなぜかメールアドレスとパスワードの画面遷移があって、しかも毎回ロボットか疑われるので地味に面倒ですよね...。VS CodeなどからSSHで接続すれば公開鍵認証なのでパスワードを打つ必要はなくなります。</p></li>
+                                <p>　</p>
+                                <li><h4>スマホに対応してない</h4>
+                                    <p>スマホで一応Cloud9は開けますが非常に操作しにくいのですよね。外出中に緊急でbotを止めるのは困難です。スマホからはSSHクライアントアプリを使うことで対応できます。ログなどもスマホから直接みれればLINEやDiscord通知を作りこむ必要も下がるかもしれませんね。</p></li>
+                                <p>　</p>
+                                <li><h4>Pythonバージョンが古い</h4>
+                                    <p>これはCloud9自体の問題ではないのですが、AWS上のCloud9ページから作った場合デフォルトの「Amazon Linux 2」というLinuxディストロが選択されます。Amazon Linux2はベースのPythonバージョンが古い(現在3.7)ので、最新(現在3.9)をインストールするには「ビルド」という作業が必要です。ビルドは幾つかのコマンドを覚える必要がありますし何せPythonのインストール・アップデートの毎に10~15分程度の処理時間が掛かって面倒です。(Linuxを学習したい場合は試してみるのありだと思います)Pythonはバージョンアップで多くの新機能や改善が行われ、bot開発の効率にも影響するので、やはり最新バージョンを利用することをおすすめします。なのでビルドが不要で既に最新版のPythonがベースで入っているLinuxディストロに乗り換えることで面倒な作業を減らすことができます。</p></li>
+                            </ul>
+                            <p>　</p>
+                            <h3 id="mokuji3">-----------------------------------------環境構成----------------------------------------</h3>
+                            <p>　</p>
+                            <h4>こちらが私が考える最適解な環境構成です。</h4>
+                            <p>　</p>
+                            <ul>
+                                <li>エディター: VS Code</li>
+                                <li>クラウド環境: AWS、GCPなど</li>
+                                <li>(任意)ローカル環境: WSL2、またはローカルLinuxマシン</li>
+                                <li>Linuxディストロ: Fedora</li>
+                                <li>SSHクライアント: Windows Terminal、Termux(Android)</li>
+                            </ul>
+                            <p>　</p>
+                            <p>では実際に構築する手順を書いていきます。</p>
+                            <p>　</p>
+                            <h3 id="mokuji4">------------------------------------Fedoraについて------------------------------------</h3>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_2.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>最初に説明するのが説明するのがLinuxの「Fedora」です。</p>
+                            <p>先述したような最新のPythonを簡単に利用できるLinuxディストロというのがFedoraです。FedoraはAmazon Linux 2やよく利用されるCentOS、RHELと呼ばれるLinuxの兄弟です。基本的には特に違いを考えずに以降できると思います。余談ですがFedoraはこの中では「先進的な機能を開発・テストするためのLinux」という位置づけとなっています。その為か最新のPythonがデフォルトで利用できるようになっています。またFedoraは現在の最新安定版のPython
+                            3.9より新しいプレリリース版のPython 3.10も利用できるのが特徴です。ではこのFedoraを利用してクラウド環境を作っていきます。</p>
+                            <p>　</p>
+                            <h3 id="mokuji5">-----------------------------------AWSアカウント作成-----------------------------------</h3>
+                            <p>まずはAWSのアカウントを作りましょう。</p>
+                            <p>👇リンク画像からAWSアカウント作成ページに進んでください。</p>
+                            <div class="content-img">
+                                <div class="content-img2">
+                                    <a
+                                        href="https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fus-east-1.console.aws.amazon.com%2Fbilling%2Fhome%3Fregion%3Dus-east-1%26state%3DhashArgs%2523%252F%26isauthcode%3Dtrue&client_id=arn%3Aaws%3Aiam%3A%3A934814114565%3Auser%2Fportal-aws-auth&forceMobileApp=0&code_challenge=I_arU9-Fvgy9q2GxrICHu5B7mdFcASQ1gxRUBm5XMUE&code_challenge_method=SHA-256"><img
+                                            src="images/bot_100.jpeg" alt=""></a>
+                                </div>
+                            </div>
+                            <p>　</p>
+                            <p>進んだら"新しいアカウントの作成"からメアド.パスワード.住所.クレジットカードを登録して下さい。アカウント作成は以上です。(無料枠で進めていきますがアカウント作成にはクレジットカード登録必須です。</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_101.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <h3 id="mokuji6">-----------------------------------キーペアを作成-----------------------------------</h3>
+                            <p>　</p>
+                            <p> キーペアとはSSHを利用して公開鍵認証を行う為のファイルです。語弊ありで説明すると、手入力が難しい非常に長いパスワードの鍵ファイルです。この鍵に対する鍵穴を作っているマシンのみ接続が許されるのでIDとパスワードによる認証よりも安全に利用できます。
+                                (興味がある方は「公開鍵認証」で検索してみましょう)
+                            </p>
+                            <p>　</p>
+
+                            <p>AWSにログインしたら👇画像の矢印の検索欄にEC2と入れて検索して、EC2を選択して下さい。</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_103.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>ダッシュボードに進み、👇画像の矢印のキーペアを選択して下さい。</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_104.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>👇画像の矢印のキーペアを作成を選択して下さい。</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_105.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>名前欄にid_rsa・キーペアタイプにRSA・プライベートキーファイルに.pemを選択してキーペアを作成をクリックでローカルに「id_rsa.pem」ファイルがダウンロードされます(この後すぐ使います)</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_106.jpeg" alt=""></a></h1>
+                            </div>
+                            <p> キーペアとはSSHを利用して公開鍵認証を行う為のファイルです。語弊ありで説明すると、手入力が難しい非常に長いパスワードの鍵ファイルです。この鍵に対する鍵穴を作っているマシンのみ接続が許されるのでIDとパスワードによる認証よりも安全に利用できます。
+                            (興味がある方は「公開鍵認証」で検索してみましょう).</p>
+                            <p>これでキーペアの作成は以上です。</p>
+                            <p>　</p>
+                            <h3 id="mokuji7">------------------キーペアのパーミッションコントロール(macOSのみ)
+                                -------------------</h3>
+                            <p>　</p>
+                            <p>windowsの方は飛ばして"インスタンスの立ち上げ"に進んでください。</p>
+                            <p>　</p>
+                            <p>ダウンロードフォルダに先程作ったid_rsa.pemという認証ファイルがありますね。</p>
+                            <p>この認証情報の入ったファイルは、当然誰でも利用出来る状態だと危ないわけです。そこでmacでは認証ファイルの権限が危険な状態では利用できない仕様になっているので,権限付与を行わないといけません。</p>
+                            <p>　</p>
+                            <pre class="title">
+                                <code class="language-javascript">
+                                # エラー文
+
+                            permission denied
+                                </code>
+                          </pre>
+                          <p>　</p>
+                            <p>この工程を飛ばすと上記のようなエラー文が出ます。意味は、”実行権限がないよ！”と言っています。</p>
+                            <p>そこで、実行権限を与えてあげる為に、下記の順番でターミナル上でコマンドを実行して下さい。</p>
+                            <p>　</p>
+                            <p># 1・チェンジディレクトリコマンドでid_rsa.pemがあるダウンロードファイルに移動</p>
+                            <pre class="title">
+                                <code class="language-javascript">
+
+                            cd downloads
+                                </code>
+                          </pre>
+                            <p>　</p>
+                            <p># 2・権限設定を変更するコマンドで秘密鍵ファイルの権限を600に設定します。</p>
+                            <pre class="title">
+                                <code class="language-javascript">
+
+                            chmod 600 id_rsa.pem
+                                </code>
+                          </pre>
+                            <p>　</p>
+                            <p>以上です！！これで認証ファイルの権限の設定終了です。</p>
+                            <p>　</p>
+                            <h3 id="mokuji8">-----------------------------------インスタンスの立ち上げ---------------------------------</h3>
+                            <p>　</p>
+                            <p>それではインスタンス立ち上げていきましょう。AWS EC2についてです。</p>
+                            <p>「EC2の立ち上げなんて分かってますよ」という方はスキップしてください。</p>
+                            <p>　</p>
+                            <p>👇リンク画像からクラウド環境を作ります。</p>
+                            <div class="content-img2">
+                                <a href="https://alt.fedoraproject.org/ja/cloud/"><img src="images/bot_3.jpeg"
+                                        alt=""></a>
+                            </div>
+                            <p>　</p>
+                            <p>ページ下部「for Amazon Public Cloud」の「x86_64 AMIs」をクリックしてリージョンの選択。</p>
+                            <p>東京リージョンで大丈夫です。</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_4.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>(補足)</p>
+                            <p>立ち上げるリージョンについてですが、東京リージョンまたは取引所のサーバー所在地に最も近いリージョンを選択します。サーバー所在地は引用サイトを貼ります。</p>
+                            <p>　</p>
+                            <div class="content-img2">
+                                <a
+                                    href="https://docs.tardis.dev/historical-data-details#per-exchange-historical-data-details"><img
+                                        src="images/bot_5.jpeg" alt=""></a>
+                            </div>
+                            <p>　</p>
+                            <p>こちらのTardis.devという仮想通貨取引所のヒストリカルデータを提供しているライブラリのドキュメントページに、主要取引所のAPIサーバーのサービス名とリージョンがまとめられています。上記目次ページから各取引所ページに飛んだ最下部に書かれています。(こちらのライブラリを利用する訳ではありません)
+                            </p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_117.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>高頻度botなど、取引所との通信速度が重要な場合はこのサイトを参考にリージョンを選択します。
+                                そうでない場合は普通に我々の住まいと物理的に距離が近い東京リージョンを選択しましょう。</p>
+                            <p>(余談ですが、Binanceなどの海外取引所も何故か東京リージョンが使われています)</p>
+                            <p>　</p>
+                            <p>脱線から戻って、👇画像の矢印の名前とタグはなんでもいいです。最初は例の通り"fedora"としましょう。</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_109.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>👇画像の矢印.キーペアの選択です。先程準備しておいたid_rsaを選択しましょう。</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_110.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>次にセキュリティですが、👇画像の矢印.launch-wizard-1を選択、なければdefaltでも大丈夫です。</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_111.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>次に、👇画像の矢印.ストレージですが。botの運用方法と相談です。ただデフォルトの状態ではOSインストール後の容量も考えるとキツキツです。今回は無料枠のMAX26GiBにしてます。botのログを高頻度で吐いたり、DBを構築してデータを溜めこむ場合はもっとあってもいいかもしれません。</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_112.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>はい最後に👇画像の矢印.インスタンスを起動をクリックでインスタンス立ち上げは終わりです。</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_113.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>それでは立ち上げたインスタンスを確認してみましょう.</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_118.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>インスタンスの状態が「実行中」になるまで待ちましょう。
+                                これでクラウド環境の構築ができました！
+                            </p>
+                            <p>　</p>
+                            <h3 id="mokuji9">-------------------------------------SSHの接続と設定------------------------------------</h3>
+                            <p>　</p>
+                            <p>では作成した仮想マシンにSSH接続できるか試してみましょう。</p>
+                            <p>　</p>
+                            <p>Windowsユーザーの場合は先に「Windowsターミナル」をインストールしましょう。Microsoft Storeなので簡単ですね。(Windowsユーザーのみ.MACユーザーはデフォのターミナルを使って下さい.)</p>
+                            <p>ここからインストール👇</p>
+                            <div class="content-img2">
+                                <a
+                                    href="https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701?hl=ja-jp&gl=jp"><img
+                                        src="images/bot_119.jpeg" alt=""></a>
+                            </div>
+                            <p>　</p>
+                            <P>WindowsターミナルはWindowsをコマンドラインで操作するソフトです。
+                                既存の「Powershell」でも大丈夫なのですが、Windowsターミナルの方がエンジニアっぽくてカッコイイです(超重要)</p>
+                            <p>macOSユーザーの方はデフォルトのターミナルで大丈夫。</p>
+                            <p>　</p>
+                            <p>(ここからMACの方も共通!!)</p>
+                            <p>ターミナルのインストールがすんだらAWSダッシュボードからインスタンス(実行中)をクリック。</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_114.jpeg" alt=""></a></h1>
+                            </div>
+
+                            <p>　</p>
+                            <p>👇画像の矢印.立ち上げたインスタンスにチェックを入れて、接続をクリックして下さい。</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_115.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>👇画像の矢印.の部分をコピ-して下さい。(自分のインスタンスIDは隠しています。)</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_116.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>コピペしたコマンドをターミナルに張り付けてEnterを押します。
+                                「Are you sure you want to continue connecting ... ?」とWarningで聞かれるので「yes」と入力してEnterを押します。ターミナルが [fedora@ip-172-31-34-2 ~]$ などとなっていれば接続成功です。
+                                (@以降は人によって異なります)</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_120.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>SSH接続ができたらひとまずはFedoraを最新の状態にアップデートしてみてください。</p>
+                            <p>起動後の決まり文句みたいなものです。</p>
+                            <pre class="title">
+                                <code class="language-javascript">
+
+                            sudo dnf upgrade -y
+                                </code>
+                          </pre>
+                          <p>　</p>
+                          <p>アップデートが終わったらPythonバージョンなど確認してみましょう。</p>
+                          <pre class="title">
+                            <code class="language-javascript">
+
+                            python3 -V
+                            </code>
+                      </pre>
+                      <p>　</p>
+                      <p>Linux環境に用がなければCtrl+Dを入力してLinuxからExitしましょう。</p>
+                      <p>接続確認ができました。</p>
+                      <p>　</p>
+                      <p>では次にSSHの追加の設定を行います。</p>
+                      <p>　</p>
+                      <p>Windowsユーザーの場合はスタートメニューを開き「%USERPROFILE%」と入力(コピペ)してユーザープロファイルのフォルダを開きます。macOSユーザーの場合はホームディレクトリを開いてください。</p>
+                      <p>そこに「.ssh」というフォルダを作成されているはずです。</p>
+                      <p>「.ssh」フォルダの中に、先ほどの「id_rsa.pem」の鍵ファイルを移動させます。</p>
+                      <p>　</p>
+                      <p>mvコマンドで移動（macユーザーがダウンロードフォルダから.sshに移動）</p>
+                      <pre class="title">
+                        <code class="language-javascript">
+
+                    mv ~/Downloads/id_rsa.pem ~/.ssh/
+
+                        </code>
+                      </pre>
+                      <p>　</p>
+                      <p>そうしたら移動した「id_rsa.pem」のファイル名を「id_rsa」にリネームしてください。これがSSH既定のファイル名になっていて、この鍵ファイルを指定せずともSSHで接続できるようになります。</p>
+                      <p>id_rsa.pemがあるフォルダの直下で下記コマンドを実行。</p>
+                      <pre class="title">
+                        <code class="language-javascript">
+
+                    mv id_rsa.pem id_rsa
+
+                        </code>
+                      </pre>
+                      <p>　</p>
+                      <p>次に同じ「.ssh」フォルダに「config」という名前のファイルを作ってください。SSHの既定の設定ファイルになります。</p>
+                      <p>「config」ファイルをメモ帳などで開いて次の内容を貼り付けてます。</p>
+                      <pre class="title">
+                        <code class="language-javascript">
+
+    Host *
+        StrictHostKeyChecking no
+        ServerAliveInterval 60
+                        
+    Host fedora
+        HostName ec2-54-199-41-127.ap-northeast-1.compute.amazonaws.com
+        User fedora
+
+                        </code>
+                      </pre>
+                      <p>　</p>
+                      <p>上段の設定は接続時にyesと打つ作業をなくし.1分ごとにpingを飛ばして放置しても切断されなくなります。</p>
+                      <p>下段は接続先のショートカット及びVS Code用の接続設定です。</p>
+                      <p>HostNameはご自身のインスタンスのアドレスに変更してください。アドレスというのは先ほどのSSH接続コマンドの「fedora@~~~」の@以降の文字列です。またIPやDNSアドレスはAWSの管理画面で確認できます。Hostの部分はショートカット名です。ご自身の好きなように"aws"などと定義してもいいと思います。</p>
+                      <p>(説明では"fedora"とします)</p>
+                      <p>　</p>
+                      <p>1つ注意ですが、EC2インスタンスを再起動などするとこのアドレスは変わってしまうので書き換えが必要になってしまいます。
+                        そこで通常はElastic IPを利用して静的なアドレスを取得します。Elastic IPの解説は省きますので検索お願いします。このnoteをみて試しに環境を作ってる際は不要だと思いますが、本番bot稼働の際には静的IPにして、configもそちらのIPに書き換えましょう。</p>
+                      <p>　</p>
+                    <p>configが正しく設定できたか確認する為、ターミナルからSSHコマンドを入力してみてください。</p>
+                    <p>(fedoraの部分はconfigのHostに設定した名前です)</p>
+                    <pre class="title">
+                        <code class="language-javascript">
+
+                               ssh fedora
+
+                        </code>
+                      </pre>
+                      <P>　</P>
+                    <p>先ほどと同じようにAWSに接続できれば大丈夫です。</p>
+                    <p>エラーがでたらconfigファイルの設定を確認してください。</p>
+                      <P>　</P>
+                    <h3 id="mokuji10">----------------------------------VS Codeのインストール---------------------------------</h3>
+                            <p>　</p>
+                            <p>クラウド環境とSSHの設定が整ったのでVS Codeをインストールしていきましょう。</p>
+                            <p>既にVS Codeあるよ!って方は画像1個下のSSH接続設定から始めてください。
+                            </p>
+                            <p>VS
+                                CodeとはMicrosoftのコードエディターです。シンプルながらも多彩な機能とプラグインがあり最近の主流のエディターです。Pythonの拡張機能を利用することでbotの開発効率を大幅に上げられます!公式サイトからダウンロードし、インストーラーの手順に従ってしてください。(簡単なので省きます)
+                            </p>
+                            <p>　</p>
+                            
+                            <div class="content-img2">
+                                <a href="https://code.visualstudio.com/download"><img src="images/bot_19.jpeg"
+                                        alt=""></a>
+                            </div>
+                            <p>　</p>
+                            <p>VS Codeは最初は英語になっているので日本語拡張機能をインストールします。
+                                拡張機能のアイコンをクリックして「ms-ceintl.vscode-language-pack-ja」と検索し拡張機能をインストールします。</p>
+                            (画像はインストール済みなので表記は異なっています)</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_20.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>再起動を促されると思うので再起動すると、日本語で表示されます。</p>
+                            <p>次にVS CodeでのSSH接続設定をしていきます。</p>
+                            <p>また拡張機能から「ms-vscode-remote.vscode-remote-extensionpack」と検索してRemote
+                                Developmentをインストールします。これによりVSCodeからSSHと後述のWSLへの接続が可能になります</p>
+                            <p>Remote Developmentをインストールすると「リモートエクスプローラー」アイコンが増えています。</p>
+                            <p>SSH Targetsを選択してfedoraをクリックしてVS CodeからSSHでAWSにアクセスをします。</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_21.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>プラットフォームはホスト側なのでLinuxを選択します。</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_22.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>これで無事にVS CodeからAWSインスタンスに接続できました!
+                                「ターミナル」から「新しいターミナル」をクリックすると先ほどWindowsターミナルから接続したのと同じようにコマンドライン環境を開くことが可能になっています。</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_23.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>では次にまた拡張機能タブから「ms-python.vscode-pylance」と検索してPylanceをインストールします。PylanceはVS
+                                CodeのPython機能を大幅に強化するプラグインです。Pythonを使うなら必須です。</p>
+                            <p>先ほどと違ってSSH接続後に拡張機能をインストールしたので、Fedora側にPylanceをインストールしました。もしWindowsまたはmacOSのローカル側にも入れたい場合は、右下のSSHアイコンから「リモート接続を終了する」をしてからインストールしましょう。
+                            </p>
+                            <P>　</P>
+                            <p>テストでPythonファイルを実行していきます。</p>
+                            <p>先ほどVS Codeから開いたターミナルで適当なディレクトリを作成します。(説明では"script"というディレクトリを使用します)それをcodeコマンドで開いてください。
+                            </p>
+                            <p>　</p>
+                            <pre class="title">
+                                <code class="language-javascript">
+                            mkdir script
+                            code script/
+                                </code>
+                            </pre>
+                            <p>　</p>
+                            <p>確認画面が出るので信頼する設定にしてフォルダを開きます。</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_25.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>では実際にPythonが動くか試してみましょう。(面倒な場合は飛ばして大丈夫です)</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_26.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>新しいファイルのアイコンをクリックして適当に「test.py」を作成します。</p>
+                            <p>　</p>
+                            <div class="content-img2">
+                                <a
+                                    href="https://carbon.now.sh/?bg=rgba%28171%2C+184%2C+195%2C+1%29&t=vscode&wt=none&l=python&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=import%2520http.client%250Aimport%2520json%250Aimport%2520urllib.request%250A%250A%250Adef%2520main%28%29%2520-%253E%2520None%253A%250A%2520%2520%2520%2520f%253A%2520http.client.HTTPResponse%250A%2520%2520%2520%2520with%2520urllib.request.urlopen%28%27https%253A%252F%252Fapi.bybit.com%252Fv2%252Fpublic%252Ftickers%253Fsymbol%253DBTCUSD%27%29%2520as%2520f%253A%250A%2520%2520%2520%2520%2520%2520%2520%2520data%2520%253D%2520json.loads%28f.read%28%29.decode%28%29%29%250A%2520%2520%2520%2520print%28json.dumps%28data%252C%2520indent%253D4%29%29%250A%250A%250Aif%2520__name__%2520%253D%253D%2520%27__main__%27%253A%250A%2520%2520%2520%2520main%28%29"><img
+                                        src="images/bot_27.jpeg" alt=""></a>
+                            </div>
+                            <p>　</p>
+                            <p>コードを上記からコピペしてください。</p>
+                            <p>折角なのでHello Worldとかではなく、BybitからTickerを取得するAPIを叩いてみます。</p>
+                            <p>　</p>
+                            <p>実行アイコンをクリックしてPythonが動作すればOKです。</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_28.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>これでPythonのコーティング及び実行環境が整いましたね☕</p>
+                            <p>コード画面をみるとシンタックスハイライトも分かりやすく、コード補完も外部ライブラリにも適用されます。ファイルも直接編集できるのでbotコーディングが捗りますね!いつも使っているライブラリのpip
+                                installなどは各自行ってください。</p>
+                            <p>　</p>
+                            <h3 id="mokuji11">----------------------------------tmuxからbotを稼働する---------------------------------</h3>
+                            <p>　</p>
+                            <p>上記では実行ボタンからPythonを実行しましたが、この方法でbotを実行するとターミナル終了時またはVS
+                                Codeの終了時にbotが終了してしまいます。SSHを切断するとシェルのプロセスも終了する仕様なので、「コーディングしながら実行」はよくても「常時稼働」させることはでません。これを解決するためにtmuxというターミナル多重化ソフトをインストールします。ちなみにtmuxはCloud9上では元々インストールされていてターミナルが複数起動できているのはこのソフトのおかげです。</p>
+                            <p>　</p>
+
+                            <pre class="title">
+                                <code class="language-javascript">
+                        sudo dnf install tmux -y
+                                </code>
+                            </pre>
+                            <p>　</p>
+                            <p>こちらをインストールしたら「tmux」コマンドで仮想ターミナルを開きます。</p>
+                            <p>　</p>
+                            <pre class="title">
+                                <code class="language-javascript">
+                                tumx
+                                </code>
+                            </pre>
+                            <p>　</p>
+                            <p>そうすると仮想ターミナルが開けました。</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_31.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>botを稼働する際はこの仮想ターミナルからpython3コマンドで実行します。</p>
+                            <p>　</p>
+
+                            <pre class="title">
+                                <code class="language-javascript">
+                                
+                            python3 test.py
+                                </code>
+                            </pre>
+                            <P>　</P>
+                            <p>コマンドを実行したら「Crtl+B」を押しその後「D」キーを押すと仮想ターミナルから抜けることができます</p>
+                            <p>　</p>
+                            <p>再度仮想ターミナルに入るには↓</p>
+                            <p>　</p>
+                            <pre class="title">
+                                <code class="language-javascript">
+                                
+                            tumx attach-session
+                                </code>
+                            </pre>
+                            <p>　</p>
+                            <p>とコマンドを入力すると最後の仮想に入れます。</p>
+                            <p>　</p>
+                            <p>先ほどのtest.pyはbotと違ってすぐに終了するスクリプトですが</p>
+                            <p>ターミナルがそのまま残っているので実行結果をみられます。</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_35.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>環境としてもCloud9でやれていたことは全てできるようになりました。</p>
+                            <p>これで問題なくbotを稼働できますね!。tmuxでさらにターミナルを立ち上げたりスクロールのには別のショートカットキーを利用します。それについてはtmuxの使い方を検索してみてください。</p>
+                            <p>　</p>
+                            <h3 id="mokuji12">-----------------------------------ローカル環境について-----------------------------------</h3>
+                            <p>　</p>
+                            <p>ローカル環境の作成については必要な場合のみ作成するのがいいと思います。<p>
+                            <p>(またはLinuxの勉強がしたい場合)</p>
+                            <p>　</p>
+                            <p>※ローカル環境を作成するメリットは</p>
+
+                            <ul>
+                                <li><h4>クラウド環境は性能や容量を上げると高額になるがローカル環境は無料または初期投資のみで済む</h4><p>特にバックテストを回す場合は(高性能なら)メインマシンからWSL環境を構築する、WebSocketで大量にデータを溜めこむ場合は専用のLinuxマシンを用意するといいと思います。
+                                </p></li>
+                                <p>　</p>
+                                <li><h4>クラウド環境はローカル環境より快適にコーディングできる</h4><p>東京リージョン以外に立てるとやはり遅延を感じることがあるので便利です。またWSLはAWSにSSHできないオフライン環境でも動作します。
+                                </p></li>
+                                
+                            </ul>
+                            <p>　</p>
+                            <h3>WSLについて</h3>
+                            <p>Windows Subsystem forLinux(WSL)とはWindowsユーザーであれば無料で利用できるLinux環境です。利用するのは現在主流のWSL2バージョンです。WSLなしでWindows環境でコーディングするのもありですが、Pythonの動作の同一性を求めるならクラウド・ローカルどちらもLinuxでやるのがよいと考えています。(エンジニア寄りの思想ですが)
+                            LinuxベースのmacOSユーザーには全く不要かと思います。</p>
+                            <p>手順を1つずつ解説すると大変長くなるので、Microsoftのドキュメントを参照してWSL2環境を立ち上げてみてください。(Windows Insider Prevewでなければ手動インストールの手順になると思います。Windowsバージョンを確認してください。)</p>
+                            <p>　</p>
+                            <div class="content-img2">
+                                <a href="https://learn.microsoft.com/ja-jp/windows/wsl/install"><img
+                                        src="images/bot_36.jpeg" alt=""></a>
+                            </div>
+                            <p>　</p>
+                            <p>手順 6でUbuntuのインストールが促されるますが、手順 5で止めてください。</p>
+                            <p>FedoraはWSL版もあるのでこちらを利用しましょう。</p>
+                            <p>　</p>
+                            <div class="content-img2">
+                                <a href="https://github.com/WhitewaterFoundry/Fedora-Remix-for-WSL/releases"><img
+                                        src="images/bot_37.jpeg" alt=""></a>
+                            </div>
+                            <p>「.msixbundle」の拡張子のファイルをダウンロードしてクリックすると簡単にインストールできます。</p>
+                            <p>　</p>
+                            <p>インストールしたらまずはWindowsターミナルから</p>
+                            <p>　</p>
+
+                            <pre class="title">
+                                <code class="language-javascript">
+                                    
+                                fedoraremix
+                                </code>
+                            </pre>
+                            <p>と入力します。そうするとユーザー名とパスワードの作成になるのでコンソールに従って入力してください。</p>
+                            <p>　</p>
+                            <p>では次にVS Codeで先ほどのSSHの手順と同じように「リモートエクスプローラー」のタブを開くと、「WSL
+                                Targets」から「fedoraremix」が利用できるようになっています。</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_39.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>WSL環境を開いたらdnf upgradeやPylanceのインストールを行って環境を整えましょう。
+                                クラウド環境よりレスポンスがよく開発が捗ると思います！</p>
+                            <p>　</p>
+                            <h4>専用のLinuxマシンについて</h4>
+                            <p>WSLだとWindowsに依存しているので、シャットダウンやWindows
+                                Updateの再起動があるのでbotの開発は適していても稼働やWebSocketからのデータの取得には適していません。
+                                クラウドよりランニングコストを低く抑えながらバックテスト用のデータを構築する場合はやはり専用のマシンがあると便利かと思います。</p>
+                            <p>　</p>
+                            <p>コスパよさげなマシンはこちら</p>
+                            <div class="content-img2">
+                                <a
+                                    href="https://www.amazon.co.jp/dp/B07BTD3H5X?tag=note0e2a-22&linkCode=ogi&th=1&psc=1"><img
+                                        src="images/bot_40.jpeg" alt=""></a>
+                            </div>
+                            <p>(ただ現在は流通がなくなってきて高くなっているので微妙かもしれません)
+                                Raspberry Piなどに詳しい方はそちらでもいいと思います。</p>
+                            <p>　</p>
+                            <p>LinuxマシンへのFedoraのインストールは公式サイトからISOをダウンロードして行いましょう。</p>
+                            <div class="content-img2">
+                                <a href="https://getfedora.org/ja/server/download/"><img src="images/bot_41.jpeg"
+                                        alt=""></a>
+                            </div>
+                            <p>　</p>
+                            <p>インストールはAWSやWSLに比べて少し複雑ですがよくあるLinuxのインストール手順なので</p>
+                            <p>分からない場合は方法を調べてみてください。</p>
+                            <p>　</p>
+                            <h3>クラウドとローカルのファイル同期について</h3>
+                            <p>WSLやLinuxマシンなどのローカルでbotをコーディングした場合、クラウド環境で稼働させる際にCloud9と同じようにファイルコピペの手作業問題が発生します。これの抜本的な解決方法ですが
+                            </p>
+                            <p>　</p>
+                            <ul>
+                                <li>GitHubなどのリモートリポジトリにアップロードしてgitコマンドを利用する</li>
+                                <li>rsyncコマンドなどでファイルを同期する</li>
+                                <li>scpコマンドなどで転送する</li>
+                            </ul>
+                           <p>　</p>
+                            <p>などです。これについても解説したいですが、さらに長くなってしまうのでまた別の記事で書きたいと思ってます。
+                                気になる方は各自コマンドを調べてみてください。</p>
+                            <p>　</p>
+                            <h3 id="mokuji13">---------------------------------------スマホからSSH--------------------------------------</h3>
+                            <p>　</p>
+                            <p>スマホからクラウド環境にSSHする方法です。</p>
+                            <p>Androidの場合は「Termux」を入れましょう。</p>
+                            <div class="content-img2">
+                                <a href="https://play.google.com/store/apps/details?id=com.termux&pli=1"><img
+                                        src="images/bot_42.jpeg" alt=""></a>
+                            </div>
+                            <p>　</p>
+                            <p>iPhoneは使ってないので分かりませんが検索すると「Termius」などのアプリが使えるかもしれません。</p>
+                            <p>以下は「Termux」上でのコマンドの説明です。スマホでポチポチしてください。</p>
+                            <p>　</p>
+
+                            <pre class="title">
+                                <code class="language-javascript">
+                                    
+                            pkg install -y openssh
+                                </code>
+                            </pre>
+                            <p>　</p>
+                            <p>こちらでSSHコマンドが使えるようになります。</p>
+                            <p>SSH接続するためにはローカルPCの「.ssh」フォルダに保存した「id_rsa」と「config」ファイルが必要になります。
+                                Googleドライブなどに保存してスマホにダウンロードしてください。</p>
+                            <p>　</p>
+                            <pre class="title">
+                                <code class="language-javascript">
+                                    
+                            termux-setup-storage
+                                </code>
+                            </pre>
+                            <p>　</p>
+                            <p>こちらのコマンドを入力するとTermuxがスマホのストレージにアクセスできる「storage」ディレクトリが作成されます。Windows側で設定したのと似たような感じで「.ssh」ディレクトリを作る作業をします。</p>
+                            <p>　</p>
+
+                            <pre class="title">
+                                <code class="language-javascript">
+                                    
+                    mkdir .ssh
+                    mv storage/downloads/id_rsa .ssh/
+                    mv storage/downloads/config .ssh/
+                    chmod 700 ~/.ssh
+                    chmod 600 ~/.ssh/id_rsa
+                                </code>
+                            </pre>
+                            <p>　</p>
+                            <p>(AndroidはLinux環境なのでchomodで権限の設定が必要になってます)</p>
+                            <p>こちらの作業ができたら</p>
+                            <p>　</p>
+                            <pre class="title">
+                                <code class="language-javascript">
+                                    
+                                ssh fedora
+                                </code>
+                            </pre>
+                            <p>　</p>
+                            <p>でPCと同じようにクラウド環境に接続できるか確認してみましょう!
+                                先ほどと同じようにtmuxコマンドから稼働中のbotを確認したりできます。
+                                またTermux自体もPythonが入るので色々と遊んでみるといいかもしれません。</p>
+                            <p>　</p>
+                            <h3 id="mokuji14">---------------------------Python 3.10をインストールしてみる--------------------------</h3>
+                            <p>　</p>
+                            <p>Fedoraは最新から過去までの色々なバージョンのPythonをインストールできます。</p>
+                            <p>最後にその方法を紹介します。</p>
+                            <p>　</p>
+
+                            <pre class="title">
+                                <code class="language-javascript">
+                                    
+                            dnf search python3.*
+                                </code>
+                            </pre>
+                            <p>　</p>
+                            <p>利用可能なPythonバージョンが表示されます</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_48.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>現在プレリリース版のPython 3.10をインストールしてみます。</p>
+                            <p>　</p>
+                            <pre class="title">
+                                <code class="language-javascript">
+                                    
+                        sudo dnf install python3.10 -y
+                                </code>
+                            </pre>
+                            <p>　</p>
+                            <p>VS Code上でPythonインタープリターを3.10に変更します</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_50.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>①が表示されない場合はtest.pyを開いた状態にしてみてください</p>
+                            <p>②が表示されない場合はVS Codeを再起動してみてください)バージョンの確認とPython
+                                3.10から実装される新しいmatch文を書いて動作するか試してみます。コード↓</p>
+                                <pre class="title">
+                                    <code class="language-javascript">
+                                        
+                    import sys
+                        
+                    def http_error(status):
+                        match status:
+                            case 400:
+                                return "Bad request"
+                            case 404:
+                                return "Not found"
+                            case 418:
+                                return "I'm a teapot"
+                            case _:
+                                return "Something's wrong with the internet"
+                                        
+                    def main():
+                        print(sys.version)
+                                        
+                        result = http_error(400)
+                        print(result)
+                                        
+                    if __name__ == '__main__':
+                        main()
+                                    </code>
+                                </pre>
+                            <p>　</p>
+                            <p>結果</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/bot_52.jpeg" alt="はく様"></a></h1>
+                            </div>
+                            <p>　</p>
+                            <p>環境構築終わり</p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+
+
+                    </section>
+                    <!-- イントロテキストここまで -->
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <!-- フッターここから -->
+        <footer class="footer-wrapper">
+            <nav class="footer-navigation">
+                <!-- フッターナビゲーション -->
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bot.html">bot</a></li>
+                    <li><a href="linetrade.html">ライントレード</a></li>
+                    <li><a href="data.html">データ分析</a></li>
+                </ul>
+            </nav>
+            <div class="footer-copyright">
+                <small>更新日2022年10月21日</small>
+            </div>
+        </footer>
+        <!-- フッターここまで -->
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- ヘッダーここから -->
+        <header class="header">
+            <div class="header-logo">
+                <h1><a href="index.html"><img src="images/logo.png" alt=""></a></h1>
+            </div>
+            <nav class="main-navigation">
+                <!-- メインナビゲーションここから -->
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bot.html">bot</a></li>
+                    <li><a href="technical.html">テクニカル</a></li>
+                    <li><a href="data.html">データ分析</a></li>
+                    <li><a href="garbage.html">ゴミ箱</a></li>
+                </ul>
+            </nav><!-- メインナビゲーションここまで -->
+        </header>
+
+        <div class="split">
+
+            <div class="split-item split-left">
+                <div class="split-left__inner">
+                    <h3>Home</h3>
+                    <ul class="mokuji-dayo">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="bot.html">bot</a></li>
+                        <li><a href="technical.html">テクニカル</a></li>
+                        <li><a href="data.html">データ分析</a></li>
+                        <li><a href="garbage.html">ゴミ箱</a></li>
+                    </ul>
+                    <p>目次</p>
+                    <ul class="mokuji-dayo">
+                        <li><a href="#">目次1</a></li>
+                        <li><a href="#">目次1</a></li>
+                        <li><a href="#">目次1</a></li>
+                        <li><a href="#">目次1</a></li>
+                    </ul>
+                    <ul class="mokuji-dayo">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="split-item split-right">
+                <div class="split-right__inner">
+                    <!-- イントロテキストここから -->
+                    <section class="text-intro">
+                        <div class="content-text">
+                            <h2>Exocharts取説</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_1.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <h2 id="目次1">EXOchartsとは？</h2>
+                            <p>　</p>
+                            <p>EXOchartsはOrderflow分析のためのプラットフォームで仮想通貨に特化しています。</p>
+                            <p>orderflow系のプラットフォームは他にもSierraとかATAS、Quantowerとかもあります。</p>
+                            <p>　</p>
+                            <h4>Orderflowってなに？footprintって？</h4>
+                            <p>Orderflow=注文の流れから需給を見る的な。形状っていうかなり曖昧な部分を削ぎ落とし本質的な部分を考察することが出来るので理解して正しく使えれば定量的な分析が可能になる。
+                            </p>
+                            <p>footprint=約定の履歴をプロファイルや色の強弱等で表したチャート。いつどういう層がどこで売買したか一目瞭然。ローソク足の完全上位互換。ローソクは価格以上の情報を取ることは出来ないが中身を見ることによってより深い考察が可能となる。
+                            </p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_2.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>雑に説明するとこのような感じです。興味ある場合はeggさんのnote読みましょう。全部解説してくれてます。今回の主題はここじゃないので詳しくどうやって考察するとかは別の機会に詳しく触れたいと思います。
+                            </p>
+                            <p>　</p>
+                            <h2>EXOChartsの各種項目</h2>
+                            <p>初期画面から何がなんの項目かと言うのを解説していきます。あまりにも突き放されるもので触ってみようくらいの人は殆どここでブラウザバックをすることでしょう。</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_3.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>現在は日足のVolume profileで構成されてます。課金しないと1日遅れの情報しか取れないのでご注意。</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_4.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>　</p>
+                            <h2>①取引所、銘柄</h2>
+                            <p>特筆することはありません</p>
+                            <p>　</p>
+                            <h2>②足の選択</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_5.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>足？というかチャートと言うか。バーって言えば良いんですかね。いつも見てるのは時間ベースのチャートですがEXOchartsでは時間足の他にも非時間ベースのチャートも選択することが出来ます。あくまで取説なので概要とか使い方は深掘りしません。
+                            </p>
+                            <p>　</p>
+                            <h3>1,Point&Figure</h3>
+                            <p>ポイントフィギュアの概念でのチャート。私は殆ど使いません。説明すると長くなるのでポイントフィギュアで検索して下さい。割りと古くからあるテクニカルの概念だそう。</p>
+                            <p>　</p>
+                            <h3>2,Trend＆rev</h3>
+                            <p>生成されて一定の取引量観測→価格の反転→一定の取引量を観測で作成されます。ここに関しては使ったこと無いので優位性を説明出来ません。</p>
+                            <h3>3,minute</h3>
+                            <p>時間足。15分とか30分とかそういうの。特段と時間足でエッジが出ることは少ないためなんでも良い。botを組む時優位性ある時間足はあったが実際の所カーブフィッティングとは思ってる。
+                            </p>
+                            <p>　</p>
+                            <h3>4,Delta</h3>
+                            <p>一定のVolume Deltaが観測されたら次のバーが生成されるパターン。
+                                出来高と比較しながらみたりしてみると割りと特徴的なパターンが見える。個人的にはあんまり使わないけど。</p>
+                            <p>　</p>
+                            <p>5,volume</p>
+                            <p>Volumeが一定の値に達すると生成。時間とボラティリティを加味して見るらしい。</p>
+                            <p>　</p>
+                            <h3>6,range</h3>
+                            <p>一定の価格範囲で次のバーが生成される。RangeYとやや違うので注意。</p>
+                            <p>　</p>
+                            <h3>7,RangeY</h3>
+                            <p>オープンから高値or安値に一定の価格範囲でバーが動いたときに次のバーが生成。陽線は下ヒゲ、陰線は上髭しか出来ない。お気に入り。</p>
+                            <p>　</p>
+                            <h3>8,Tick</h3>
+                            <p>一定の取引量で次のバーが生成。出来高ではなくあくまで取引量。
+                                そのバーでの時間がながければ長いほど取引量が少ないことを意味し逆も然り。出来高とは人数あたりの出来高を考えることで対応。便利。</p>
+                            <h2>③Tick</h2>
+                            <p>これはfootprintのどれぐらい細かく表示するかって話。取引所、銘柄によって1tickあたり何ドル幅か変わるので注意。</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_6.jpeg" alt=""></a></h1>
+                            </div>
+                            <div class="content-img">
+                                <h1><img src="images/exo_7.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>使い方としてはどれくらい細かく見るのか。そしてどれくらいなら纏めちゃっていいのかとか。ここらへんはお好み。
+                                参考までにBTCでは私は30分足で20Tickくらい（1tick=0.5$幅なので10$幅の取引を纏めて見てる）ぶっちゃけ知りたいのは何処に流動性ギャップがあるのとPOCなのかなのでここの数値は神経質にならなくても良いかと。
+                            </p>
+                            <p></p>
+
+                            <h2>④footprintのタイプ</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_100.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>今度はfootprintのタイプを紹介していきます。</p>
+                            <p>とりあえずわかりやすい様に時間足、Tick銘柄は揃えておきました。今回の場合は30分足の100TickのETHですね。</p>
+                            <h3>Volume profile</h3>
+                            <div class="content-img">
+                                <h1><img src="images/exo_9.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>価格ベースで何処に出来高が溜まっているか。割りとVPVRは結構皆さん使っているイメージです。そこまで深く説明しなくても大丈夫でしょう。</p>
+                            <p>　</p>
+                            <h3>Delta profile</h3>
+                            <div class="content-img">
+                                <h1><img src="images/exo_10.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>Delta profileは割りと勘違いされがちですが（なんなら俺も最初勘違いしてた）これはプロファイル(？)の大きさ自身はdeltaではなくてVolume
+                                profileと同じでその価格帯で負のデルタなら赤、正のデルタなら青です。</p>
+                            <p>　</p>
+                            <h3>BID-ASK Profile</h3>
+                            <div class="content-img">
+                                <h1><img src="images/exo_11.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>一番良く使います。てか私はこれしか使いません。
+                                右が買いの出来高、左が売りの出来高を表しています。</p>
+                            <p>　</p>
+                            <h3>Volume cluster</h3>
+                            <div class="content-img">
+                                <h1><img src="images/exo_12.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>Volume profileと表示の仕方が違うだけです。
+                                色が濃ければ出来高が多く薄ければ以下略</p>
+                            <p>　</p>
+                            <h3>Delta cluster</h3>
+                            <div class="content-img">
+                                <h1><img src="images/exo_13.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>delta profileと同じです。delta profileと同じく色の濃淡は出来高依存なのですが設定いじればdelta依存に出来ます。下記の設定の部分で解説してます。
+                            </p>
+                            <p>　</p>
+                            <h3>delta ladder</h3>
+                            <div class="content-img">
+                                <h1><img src="images/exo_14.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>基本的にDelta Profileと同じです。</p>
+                            <p>delta clusterと違うのは売りなら左のみ、買いだと右のみです。</p>
+                            <p>同じことを繰り返しますが出来高deltaではなく出来高依存なのをお忘れなく。しかし設定いじればdelta依存に出来ます。下記の設定の部分で解説してます</p>
+                            <p>　</p>
+                            <p>画像は載せてませんがVoidは何も表示しないことです。恐らく誰も使わないでしょう。</p>
+                            <p>　</p>
+                            <h2>⑤Text</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_15.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>footprintにどのデータを表示させるのかです。出来高なのかbuy sell分けて表示するのかその差分なのか。特段と説明しなくてもいいと思うので軽く流します。</p>
+                            <p>　</p>
+                            <p>Volume→何度も言ってる通り出来高。buy sellの合算</p>
+                            <p>　</p>
+                            <p>Delta→その差分buy vol- sell vol</p>
+                            <p>　</p>
+                            <p>Bid ask→buy sellそれぞれ分けて表記。右が買いで左が売り</p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_16.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>imbalance→buy sell間でimbalanceが出た場合目立つ様に表記することが出来ること以外はBid askと同じ。Bid
+                                ask使うならこっちにしない理由は基本的にない。私は普段これ。Imbalannceの数値は調節出来る。設定の項目で詳しく書きます。</p>
+                            <p>　</p>
+                            <h2>⑥ローソクの設定</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_17.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>ローソク足をどうするか的な。Orderflow的に得られる情報は何一つ変わらない部分なので流して書きます。適当に弄ってみて見やすいのを選んで下さい。</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_18.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>MONO　box→始値と終値のBOXで髭が表示されない。モノクロカラー。</p>
+                            <p>MONO　candle→MONO boxに髭がついたバージョン</p>
+                            <p>Color　box→MONO boxの色付き。中身が空洞。色は自分好みに変えてどうぞ。</p>
+                            <p>Color　candle→MONO candleに色つけたやつ。</p>
+                            <p>bordered　candle→Color　candleの中身が空洞じゃないバージョン。灰色の枠があって邪魔。footprint見たくてEXOchartsを見てんのに見辛すぎ。
+                            </p>
+                            <p>Flat　candle→bordered　candleに枠が無いだけ。見辛い。</p>
+                            <p>OHLC→ちっこいローソクが横に表示される。Color candleと好みが分かれそう。</p>
+                            <p>OC→OHLCの高安がないバージョン。</p>
+                            <p>HL→高安。使う必要性を感じない。</p>
+                            <p>Embed→OHLCが真ん中に食い込んだ。別に使わない。</p>
+                            <p>　</p>
+                            <h2>インジケーター</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_19.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>Vol→出来高</p>
+                            <p>Tcount→人数比。出来高は量なのに対しこちらはそれぞれどれくらいの人数が取引したのか。</p>
+                            <p>Rect→清算</p>
+                            <p>FPBS→Footprint bar statisticsの略。そのバーの更に細かい数値を見られる。初期状態ではVolume、Delta、CVD(cumulative
+                                volume delta累積ボリュームデルタ)が表示されている。</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_20.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>mainの部分は殆どいじらなくて良し。項目を追加したかったら「+add」</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_21.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>纏めて説明しちゃいます。用語の殆どがここまで読んでくれた方ならわかるはずなので割愛。「Time→時間。そのままです。」「Traders→上でも出てきたかな？どれくらいの人が取引したかです。出来高とは違うので注意。」
+                            </p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_22.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>FPBSを見る、設定する上では恐らくTrade countの部分とVolume、Volume
+                                delta項目でのsource部分だと思うのでここだけ。他は表記方法だったり色とかなので適当に弄ってみてください。</p>
+                            <p>ここは主にどのデータを採用するかとう言う部分でCandle
+                                data全体なのかTsize毎に選べたりと割りと充実してます。Tsizeの概念は下で解説してるのでそこと合わせてみて下さい。</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_23.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>最後にTradersです。上から順にTradecountはそのバーでの取引人数がどれくらいいたか。sell/buytradesはTradecountをそれぞれ分けたもの。</p>
+                            <p>Trades per
+                                secondeは人数を秒間辺りに割ったものですね。これが何を意味するかというと出来高等と比べながら見てくるとですね。ストップの疑似検知的なのにも使えるのかな？結構近いかも。Tickチャートと一緒に見たりしましょう。基本的に時間ベースのチャートとは相性は良くないはずです。
+                            </p>
+                            <p>Tsize→大口、小口の注文を分けて見れます。便利。</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_24.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>この様にI以下、n～mの間、m以上といった具合に注文を分けて見ることが出来ます。上記で割愛したDeltaのsourceなんかも概念はここから引っ張ってきているのでTsizenのnの部分を大口をみたいのか小口を見たいのかで分けましょう。僕はモニターデカいので全部表示させてます。
+                            </p>
+                            <p>　</p>
+                            <p>CS→高値安値とかバーのデータをローソクの上に表示させる。別にいらない。</p>
+                            <p>　</p>
+                            <p>DBars →Delta Barsから略してDBars.おなじみVolume deltaを表示させる。</p>
+                            <p></p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_25.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>結構ごちゃごちゃしているがデルタダイバージェンスを表示させる部分とCVDのラインを表示させる項目だけチェック入れておけば後はお好みで。</p>
+                            <p>　</p>
+                            <p>OI→Open interest</p>
+                            <p>　</p>
+                            <p>NL→EXOchartの計算式自体はわからないが意味合い的には新規ロングポジション。他のプラットフォームや自分でそれらしいのを作った時にやや数値が異なっているので実際のところ正確かは不明。そりゃ見たほうが良いけど神経質になるまでもない指標。
+                            </p>
+                            <p>　</p>
+                            <p>NS→↑のショートバージョン。</p>
+                            <p>vWAP→特に説明不要。ggrks.</p>
+                            <p>　</p>
+                            <p>Setting</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_26.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>ここを全部説明するだけでも震えますね。果たして需要あるのかどうか。</p>
+                            <p>例に漏れず表記法とか色とかそこらへんは雑にすっ飛ばします。TPLはテンプレートを読み込んだりセーブしたりインポート特に説明するところは無いかもなので割愛。</p>
+                            <p>　</p>
+                            <h2>Cluster mode</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_27.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>ここでもCluster modeの設定をすることが出来ます。上記で説明した通り別に左上で設定すればいいのでわざわざ使う必要もございません。</p>
+                            <p>calculationはプロファイルの表記法です。adaptive、cullent　rottation、fixedがあります。基本的に初期設定のadaptiveで大丈夫です。fixedは表記上限を設定して絶対値で表記する感じです。
+                            </p>
+                            <p>　</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_28.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>delta clusterの設定では濃淡をvolベースなのかデルタベースなのか選ぶことが出来ます。個人的にわざわざデルタclusterチャートを使うならdelta
+                                baseで見たほうが良いのでは無いでしょうか。とはいえ結局Volも絡めて見ないと色々と別解釈をしてしまうので僕はBid ask Profileを一番使います。</p>
+                            <p>　</p>
+                            <h2>VA、POC、Imbalance</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_29.jpeg" alt=""></a></h1>
+                            </div>
+                            <div class="content-img">
+                                <h1><img src="images/exo_30.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>VAの範囲とかそういう設定です。基本的に初期設定で問題ないです。</p>
+                            <p>Bid-ask imbalance calcurationは同じ価格帯でのどれくらいのbuy
+                                sell比率でimbalance判定として表記させるかというものです。デフォルトの数値は忘れましたが僕は400％で表記させています。ここもお好みですが確か200～400％の間が一般的とか聞きました。
+                            </p>
+                            <p>　</p>
+                            <h2>Rect</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_31.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>清算バブル？のようなものの大きさです。そもそも僕EXOチャートで清算見ないのでrektではどこをどうしたらみたいなのイマイチ良くわかったません。適当に数値弄ってみて下さい。
+                            </p>
+                            <p>　</p>
+                            <p>左のやつ笑</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_32.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>名前がわからないので見出しはご愛嬌笑</p>
+                            <p>　</p>
+                            <h2>Mrk.</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_33.jpeg" alt=""></a></h1>
+                            </div>
+                            <div class="content-img">
+                                <h1><img src="images/exo_34.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>チャートの右側、もしくは左側にPOC,VAを表示させます。</p>
+                            <p>Developing day 当日の</p>
+                            <p>Previous day　前日の</p>
+                            <p>といった具合に今週、先週、今月、先月のVAとPOCを設定することが出来ます。</p>
+                            <p>オレンジで囲んだ部分で何処に表示させるかを選択することが出来ます。自分好みに弄ってみてください。</p>
+                            <p>　</p>
+                            <h2>VA</h2>
+                            <p>ローソク足又はTPOチャートにValue areaを表示します。</p>
+                            <p>　</p>
+                            <h2>POC</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_35.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>この欄ではPOCの表示の仕方です。</p>
+                            <p>Border、Fillは枠だけ目立たせるとか塗りつぶすとかそういうやつなので無視で結構です。</p>
+                            <p>Naked POCは表示させておいてもいいかと思います。</p>
+                            <p>tickチャートなど短期になると邪魔にはなりますが大きめの時間足を見る時は大きいVolumeを付けた場所などは気にするようにしています。</p>
+                            <p>　</p>
+                            <h2>CPR、CPL</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_36.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>チャートの右側、左側のそれぞれにClusterを配置出来ます。</p>
+                            <p>この画像では右にはdelta profile、左にVolume profileを配置しております。</p>
+                            <p>　</p>
+                            <h2>TPO</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_37.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>TPOとは</p>
+                            <p>Time Price
+                                Opportunityの略で指定された時間帯の価格分布を示し、プロファイルを形成します。価格がどのレベルまたは範囲で最も長く推移したかをぱっと見で把握することができ、主要な支持線と抵抗線を把握することができます。
+                            </p>
+                            <p>とこの様に時間の観点から分析するといった感じです。</p>
+                            <p>Time Price Opportunityで検索すればorderf flow系のプラットフォームがざっくりとした使い方を解説してくれてるので各自調べてみて下さい。</p>
+                            <p>ここと付随してAMT(auction market theory)も一緒に調べましょう。</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_38.jpeg" alt=""></a></h1>
+                            </div>
+                            <div class="content-img">
+                                <h1><img src="images/exo_39.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>囲った所。Split Profile（左）と unSplit Profile（右、わかりやすくローソク足は消してます）を切り替える</p>
+                            <p>　</p>
+                            <h2>Elements</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_40.jpeg" alt=""></a></h1>
+                            </div>
+                            <div class="content-img">
+                                <h1><img src="images/exo_41.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>IB(initial baance)が何処にあるかというのを表示させる。株とかで寄り付きだとかそういうので結構意識されるそうだけど仮想通貨で気にするべきかは不明である。</p>
+                            <p>　</p>
+                            <h2>POC,VA</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_42.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>TPOは各アルファベットが一般的に30分を表しており、それが積み重なりProfile形式となっております。</p>
+                            <p>ここで表示されるPOCはVolumeによるPOCでは無くどの時間に最も多くとどまったかを表すものなので厳密に言うと性質は変わります。</p>
+                            <p>黄色の線を引いた所はPOCを時間依存なのか出来高依存なのか切り替える事が出来ます。</p>
+                            <p>　</p>
+                            <p>session split</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_43.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>sessionを分ける事が出来ます。任意の時間、名称を設定しましょう。僕はアジア時間、それ以外で見ています。</p>
+                            <p>　</p>
+                            <p>Single print、Tails</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_44.jpeg" alt=""></a></h1>
+                            </div>
+                            <div class="content-img">
+                                <h1><img src="images/exo_45.jpeg" alt=""></a></h1>
+                            </div>
+                            <div class="content-img">
+                                <h1><img src="images/exo_46.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>まず軽く定義の確認をしておきましょう。</p>
+                            <p>SP(single print)とは1つのTPOで構成される領域を指します。</p>
+                            <p>一方的な大きいボラティリティによって作られたこの領域はギャップとして認識され埋められやすいです。窓埋めなんかもプライスギャップとして認識されており、埋まるとか埋まらないとか良く耳にしますよね。
+                            </p>
+                            <p>　</p>
+                            <p>Tailとは直訳すると尻尾という意味で（誰でも知ってる）Profileの両端に１つのTPOで構成されている場合にそう呼びます。髭、とかミスプライスとかそういった認識です。下のみスプライスをBT(Buy
+                                tail)上のミスプライスをST(sell tail)と呼びます。</p>
+                            <p>　</p>
+                            <p>それぞれ数値の部分はどれくらいTPOが縦に連続した時にSP,BT,STを表示させるかと言うものでこれもお好みで設定しましょう。言い忘れましたがTPOはcluster等を設定したtick設定で細かくしたりざっくりとした感じで見れたりもするため一緒に設定しましょう。
+                            </p>
+                            <p>　</p>
+                            <h2>Volume profile</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_47.jpeg" alt=""></a></h1>
+                            </div>
+                            <div class="content-img">
+                                <h1><img src="images/exo_48.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>ここではTPOの横にVolume
+                                profileを表示させることが出来る設定をすることが出来ます。おさらいですがTPOは基本的に時間と価格ベースであって出来高は参照に入ってないのでご注意下さい。</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_49.jpeg" alt=""></a></h1>
+                            </div>
+                            <div class="content-img">
+                                <h1><img src="images/exo_50.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>画像で言う灰色の部分をどうするかです。私の場合はVolume profile（灰色）の中身でセッションのデルタ（赤、青）を表示しております。</p>
+                            <p>桃色の部分がVolume
+                                profileのPOCを表示するしないというもので「VA,POC」の解説でPOCをVolumeベースか時間ベースか選べるという時私がTPOベースにしてるのはこちらで出来高ベースを表示させてるからです。
+                            </p>
+                            <p>主に長くとどまった時間帯と出来高の関係など見てます。</p>
+                            <p>　</p>
+                            <h2>水平線の引き方</h2>
+                            <div class="content-img">
+                                <h1><img src="images/exo_51.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>EXOchartでは水平線を引く事が出来ます。</p>
+                            <p>肝心の引き方はこのオレンジ線の価格のところをダブルクリックすることで水平線を引くことが出来ます。</p>
+                            <p>　</p>
+                            <h2>TPOのマージ</h2>
+                            <p>TPOのマージ機能の紹介です。</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_52.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>Profileのこの辺りをダブルクリックするとこの様に黄色く囲われて
+                                Merge Exp.d、tx reset、MergeXと表示されます。</p>
+                            <p>Merge Exp.dは一つ前のProfileと統合し一つで表示されるというものです。
+                                実際に画像で、見てみましょう。</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_53.jpeg" alt=""></a></h1>
+                            </div>
+                            <div class="content-img">
+                                <h1><img src="images/exo_54.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>と、この様に表示されます。</p>
+                            <p>次にMergeXをクリックするとこのような画像が表示され、数字を入力すると一度に入力した分だけ前のProfileをマージすることが出来ます。</p>
+                            <div class="content-img">
+                                <h1><img src="images/exo_55.jpeg" alt=""></a></h1>
+                            </div>
+                            <div class="content-img">
+                                <h1><img src="images/exo_56.jpeg" alt=""></a></h1>
+                            </div>
+                            <p>以上です。　orderflowトレーダーへの第一歩です。</p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+
+
+
+                    </section>
+                    <!-- イントロテキストここまで -->
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <!-- フッターここから -->
+        <footer class="footer-wrapper">
+            <nav class="footer-navigation">
+                <!-- フッターナビゲーション -->
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bot.html">bot</a></li>
+                    <li><a href="linetrade.html">ライントレード</a></li>
+                    <li><a href="data.html">データ分析</a></li>
+                </ul>
+            </nav>
+            <div class="footer-copyright">
+                <small>更新日2022年10月21日</small>
+            </div>
+        </footer>
+        <!-- フッターここまで -->
+    </div>
+</body>
+
+</html>
